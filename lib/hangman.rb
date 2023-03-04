@@ -13,5 +13,15 @@ end
 class Game
     def initialize
         @secret_word = choose_random_word()
+        @turns_left = 6
+        @incorrect_letters = []
+        @player_guesses = Array.new(@secret_word.length, "_")
+    end
+
+    def print_game_information
+        puts "You have #{@turns_left} turns left!"
+        puts "Incorrect Letters: #{@incorrect_letters}"
+        @player_guesses.each { |value| print "#{value} " }
+        puts ""
     end
 end
