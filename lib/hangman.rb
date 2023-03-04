@@ -18,6 +18,11 @@ class Game
         @player_guesses = Array.new(@secret_word.length, "_")
     end
 
+    def get_player_guess
+        print "Enter a letter: "
+        @letter = gets.chomp
+    end
+
     def print_game_information
         puts "You have #{@turns_left} turns left!"
         puts "Incorrect Letters: #{@incorrect_letters}"
