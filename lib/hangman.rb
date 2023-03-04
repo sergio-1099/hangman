@@ -41,6 +41,16 @@ class Game
         end
     end
 
+    def check_game_status
+        if (@mistakes_left == 0)
+            return 0
+        elsif (!@letter_guesses.include?("_"))
+            return 1
+        else  
+            return 2
+        end
+    end
+
     def print_game_information
         puts "You have #{@mistakes_left} mistakes left!"
         puts "Incorrect Letters: #{@incorrect_letters}"
