@@ -16,7 +16,7 @@ class Game
     def initialize
         @secret_word = choose_random_word().upcase.split('')
         @secret_word.slice!(@secret_word.length - 1)
-        @mistakes_left = 6
+        @mistakes_left = 7
         @incorrect_letters = []
         @player_guesses = Array.new(@secret_word.length, "_")
     end
@@ -44,7 +44,7 @@ class Game
     def check_game_status
         if (@mistakes_left == 0)
             return 0
-        elsif (!@letter_guesses.include?("_"))
+        elsif (!@player_guesses.include?("_"))
             return 1
         else  
             return 2
@@ -56,5 +56,22 @@ class Game
         puts "Incorrect Letters: #{@incorrect_letters}"
         @player_guesses.each { |value| print "#{value} " }
         puts ""
+        if (@mistakes_left == 0)
+            puts @secret_word.join
+        end
     end
+end
+
+hangman = Game.new
+
+while (hangman.check_game_status == 2)
+    hangman.get_player_guess
+    hangman.check_player_guess
+    hangman.print_game_information
+end
+
+if hangman.check_game_status == 1
+    puts "You won! Great guesses!"
+elsif hangman.check_game_status == 0
+    puts "You lost..."
 end
