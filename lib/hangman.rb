@@ -16,7 +16,7 @@ class Game
     def initialize
         @secret_word = choose_random_word().upcase.split('')
         @secret_word.slice!(@secret_word.length - 1)
-        @turns_left = 6
+        @mistakes_left = 6
         @incorrect_letters = []
         @player_guesses = Array.new(@secret_word.length, "_")
     end
@@ -34,13 +34,15 @@ class Game
                 end
             end
         else
-            @turns_left -= 1
-            @incorrect_letters << @letter_guess
+            @mistakes_left -= 1
+            unless (@incorrect_letters.include?(@letter_guess))
+                @incorrect_letters << @letter_guess
+            end
         end
     end
 
     def print_game_information
-        puts "You have #{@turns_left} turns left!"
+        puts "You have #{@mistakes_left} mistakes left!"
         puts "Incorrect Letters: #{@incorrect_letters}"
         @player_guesses.each { |value| print "#{value} " }
         puts ""
