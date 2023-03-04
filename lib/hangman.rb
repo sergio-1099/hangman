@@ -9,3 +9,9 @@ def choose_random_word
     end
     return word
 end
+
+class Game
+    def initialize
+        @secret_word = choose_random_word()
+    end
+end
