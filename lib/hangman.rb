@@ -21,6 +21,8 @@ def choose_random_word
 end
 
 class Game
+    attr_accessor :letter_guess
+
     def initialize(secret_word=nil, mistakes_left=nil, incorrect_letters=nil, player_guesses=nil)
         if (secret_word == nil)
             @secret_word = choose_random_word().upcase.split('')
@@ -34,11 +36,6 @@ class Game
             @incorrect_letters = incorrect_letters
             @player_guesses = player_guesses
         end
-    end
-
-    def get_player_guess
-        print "Enter a letter: "
-        @letter_guess = gets.chomp.upcase
     end
 
     def check_player_guess
@@ -82,7 +79,7 @@ class Game
     end
 
     def print_game_information
-        puts "You have #{@mistakes_left} mistakes left!"
+        puts "\nYou have #{@mistakes_left} mistakes left!"
         puts "Incorrect Letters: #{@incorrect_letters}"
         @player_guesses.each { |value| print "#{value} " }
         puts ""
@@ -113,7 +110,16 @@ end
 
 while (hangman.check_game_status == 2)
     hangman.print_game_information
-    hangman.get_player_guess
+
+    print "Enter a letter (or type 'save' to save & end the game): "
+    letter_guess = gets.chomp.upcase
+    if (letter_guess == 'SAVE')
+        hangman.to_json
+        puts "\nYou can run program at any time to reopen your saved game!"
+        exit(0)
+    else
+        hangman.letter_guess = letter_guess
+    end
     hangman.check_player_guess
 end
 
