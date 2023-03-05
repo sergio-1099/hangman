@@ -1,4 +1,5 @@
 require 'pry-byebug'
+require 'json'
 
 def choose_random_word
     begin
@@ -56,6 +57,16 @@ class Game
         else  
             return 2
         end
+    end
+
+    def to_json
+        saved_game = JSON.dump({
+            :secret_word => @secret_word,
+            :mistakes_left => @mistakes_left,
+            :incorrect_letters => @incorrect_letters,
+            :player_guesses => @player_guesses
+        })
+        File.open("saved_game.txt", "w") { |f| f.write(saved_game) }
     end
 
     def print_game_information
