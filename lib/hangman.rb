@@ -21,12 +21,19 @@ def choose_random_word
 end
 
 class Game
-    def initialize
-        @secret_word = choose_random_word().upcase.split('')
-        @secret_word.slice!(@secret_word.length - 1)
-        @mistakes_left = 7
-        @incorrect_letters = []
-        @player_guesses = Array.new(@secret_word.length, "_")
+    def initialize(secret_word=nil, mistakes_left=nil, incorrect_letters=nil, player_guesses=nil)
+        if (secret_word == nil)
+            @secret_word = choose_random_word().upcase.split('')
+            @secret_word.slice!(@secret_word.length - 1)
+            @mistakes_left = 7
+            @incorrect_letters = []
+            @player_guesses = Array.new(@secret_word.length, "_")
+        else
+            @secret_word = secret_word
+            @mistakes_left = mistakes_left
+            @incorrect_letters = incorrect_letters
+            @player_guesses = player_guesses
+        end
     end
 
     def get_player_guess
@@ -67,6 +74,11 @@ class Game
             :player_guesses => @player_guesses
         })
         File.open("saved_game.txt", "w") { |f| f.write(saved_game) }
+    end
+
+    def self.from_json(string)
+        data = JSON.load string
+        self.new(data["secret_word"], data["mistakes_left"], data["incorrect_letters"], data["player_guesses"])
     end
 
     def print_game_information
