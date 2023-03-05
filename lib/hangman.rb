@@ -9,6 +9,7 @@ def choose_random_word
             word_number = rand(9894) + 1
             word = dictionary.readlines[word_number]
             word = "A" if word == nil
+            dictionary.rewind
         end
         return word
         dictionary.close
