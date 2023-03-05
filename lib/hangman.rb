@@ -126,7 +126,7 @@ end
 hangman.print_game_information
 
 if hangman.check_game_status == 1
-    puts "You won! Great guesses!"
+    puts "\nYou won! Great guesses!"
 elsif hangman.check_game_status == 0
-    puts "You lost..."
+    puts "\nYou lost..."
 end
