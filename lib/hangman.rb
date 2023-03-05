@@ -92,7 +92,24 @@ class Game
     end
 end
 
-hangman = Game.new
+print "New Game(1) or Saved Game(2): "
+game_choice = gets.chomp.to_i
+while (game_choice != 1 && game_choice != 2)
+    print "Invalid choice. Choose 1 (New Game) or 2 (Saved Game): "
+    game_choice = gets.chomp.to_i
+end
+
+if (game_choice == 1)
+    hangman = Game.new
+else
+    if (!File.exists?('saved_game.txt'))
+        puts "Save file does not exist. Starting new game..."
+        hangman = Game.new
+    else
+        saved_game = File.open('saved_game.txt', 'r').read
+        hangman = Game.from_json(saved_game)
+    end
+end
 
 while (hangman.check_game_status == 2)
     hangman.print_game_information
