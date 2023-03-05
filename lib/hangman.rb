@@ -71,10 +71,12 @@ end
 hangman = Game.new
 
 while (hangman.check_game_status == 2)
+    hangman.print_game_information
     hangman.get_player_guess
     hangman.check_player_guess
-    hangman.print_game_information
 end
+
+hangman.print_game_information
 
 if hangman.check_game_status == 1
     puts "You won! Great guesses!"
